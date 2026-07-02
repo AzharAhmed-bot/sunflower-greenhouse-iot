@@ -69,7 +69,7 @@ The gas value climbs noticeably in trials 3 and 4, which lines up with the senso
 
 <img src="closeup.jpeg" width="400"/>
 
-[HERE GOES IMAGE: MQ-5 sensor being triggered by hand, OLED reading Gas 73]
+<img src="image3.jpeg" width="400"/>
 
 [HERE GOES IMAGE: MQ-5 sensor triggered a second time, OLED reading Gas 64]
 
