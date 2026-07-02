@@ -71,11 +71,11 @@ The gas value climbs noticeably in trials 3 and 4, which lines up with the senso
 
 <img src="image3.jpeg" width="400"/>
 
-[HERE GOES IMAGE: MQ-5 sensor triggered a second time, OLED reading Gas 64]
+<img src="image4.jpeg" width="400"/>
 
-[HERE GOES IMAGE: wide view of the full architecture A breadboard build]
+<img src="image5.jpeg" width="400"/>
 
-[HERE GOES IMAGE: final reading on the OLED, Hum 68.0%, Gas 15]
+<img src="image6.jpeg" width="400"/>
 
 ---
 
