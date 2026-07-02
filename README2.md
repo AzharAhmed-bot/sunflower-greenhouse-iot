@@ -1,21 +1,6 @@
 # ICS 4111: Embedded Systems & IoT
 ## Semester Project – Deliverable 2: Prototyping
 
-## Group 5 – Lazy Lobsters
-
-| No. | Student No. | Name                     |
-| --- | ----------- | ------------------------ |
-| 1   | 169208      | Barot Hetvi Dipen        |
-| 2   | 168879      | Muhereza Casper          |
-| 3   | 169683      | Takoy Azhar Ahmed Sheikh |
-| 4   | 152522      | Njau Shadrack            |
-| 5   | 152322      | Omar Siddique            |
-| 6   | 166539      | Stephen Nyariki          |
-
-Project: **Sunflower Greenhouse IoT Monitoring System**
-
----
-
 ## 1. Objective
 
 This deliverable builds on the schematics produced in Deliverable 1 and turns them into working prototypes, both physical and simulated, based on the three device architectures assigned for the sunflower greenhouse monitoring system:
