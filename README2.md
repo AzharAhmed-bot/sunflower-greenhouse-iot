@@ -65,10 +65,9 @@ The gas value climbs noticeably in trials 3 and 4, which lines up with the senso
 
 ### 3.4 Evidence
 
-[HERE GOES IMAGE: full breadboard view, OLED reading Temp 26.3C, Hum 66.4%, Gas 15]
 <img src="full_breadboard_view.jpeg" width="400"/>
 
-[HERE GOES IMAGE: close-up of the OLED display showing live readings]
+<img src="closeup.jpeg" width="400"/>
 
 [HERE GOES IMAGE: MQ-5 sensor being triggered by hand, OLED reading Gas 73]
 
