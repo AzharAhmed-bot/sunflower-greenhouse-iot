@@ -17,5 +17,5 @@ This repository is organised by deliverable, each with its own branch.
 | Branch | Deliverable | Document |
 | --- | --- | --- |
 | `deliverable-1` | Flower growth requirements, hardware components & circuit schematics | `README1.md` |
-
+| `deliverable-2` | Flower growth requirements, hardware components & circuit schematics | `README2.md` |
 ---
