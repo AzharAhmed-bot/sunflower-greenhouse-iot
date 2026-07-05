@@ -17,5 +17,6 @@ This repository is organised by deliverable, each with its own branch.
 | Branch | Deliverable | Document |
 | --- | --- | --- |
 | `deliverable-1` | Flower growth requirements, hardware components & circuit schematics | `README1.md` |
+| `deliverable-1` | Prototyping — physical & simulated builds for Architectures A, B & C | `README1.md` |
 
 ---
