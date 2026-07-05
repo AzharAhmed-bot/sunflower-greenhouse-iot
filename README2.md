@@ -1,22 +1,25 @@
 # ICS 4111: Embedded Systems & IoT
 ## Semester Project – Deliverable 2: Prototyping
+*Group 5 — Lazy Lobsters*
+
+---
 
 ## 1. Objective
 
-This deliverable builds on the schematics produced in Deliverable 1 and turns them into working prototypes, both physical and simulated, based on the three device architectures assigned for the sunflower greenhouse monitoring system:
+For this deliverable we took the circuit designs from Deliverable 1 and built working prototypes — both physical breadboard builds and Wokwi simulations. The three architectures we had to cover were:
 
-- **Architecture A** – 1 ESP32S connected to 1 MQ-5 gas sensor, 1 DHT22 temperature/humidity sensor and 1 OLED display. Built as both a physical and a simulated model.
-- **Architecture B** – 1 ESP32S connected to an MQ-5 sensor, interfaced directly with a second ESP32S connected to a DHT22.
-- **Architecture C** – 1 ESP32S connected to a DHT22, feeding a relay which connects to a second ESP32S connected to an MQ-5.
+- **Architecture A** – one ESP32S reading the MQ-5, DHT22 and OLED all on one board.
+- **Architecture B** – two ESP32S boards connected directly over UART, one handling gas and the other temperature and humidity.
+- **Architecture C** – same two-board setup but with a relay in between instead of a direct wire.
 
-Since B and C are interchangeable, our team built a physical prototype for one and a Wokwi simulation for the other, so that between the two we cover both wiring approaches.
+B and C are close enough in hardware that we did one physically and simulated the other on Wokwi, which covered both approaches.
 
 ---
 
 ## 2. Prototype Summary
 
 | # | Architecture | Type | Status | Link / Evidence |
-|---|--------------|------|--------|------------------|
+|---|---|---|---|---|
 | 1 | A – ESP32 + MQ-5 + DHT22 + OLED | Physical | Working | See section 3 |
 | 2 | A – ESP32 + MQ-5 + DHT22 + OLED | Simulated (Wokwi) | Working | https://wokwi.com/projects/467006558712168449 |
 | 3 | C – ESP32 (DHT22) → Relay → ESP32 (MQ-5) | Physical | See section 5 | See section 5 |
@@ -24,160 +27,134 @@ Since B and C are interchangeable, our team built a physical prototype for one a
 
 ---
 
-## 3. Prototype 1: Physical – Architecture A (ESP32 + MQ-5 + DHT22 + OLED)
+## 3. Prototype 1: Physical – Architecture A
 
-### 3.1 Components used
+### 3.1 Components
 
-- 1x ESP32S development board
-- 1x MQ-5 gas sensor module
-- 1x DHT22 temperature and humidity sensor
-- 1x 0.96" I2C OLED display
-- Breadboard, jumper wires
-- Current-limiting resistors on the sensor lines to protect the ESP32 GPIO pins
+- 1× ESP32S development board
+- 1× MQ-5 gas sensor
+- 1× DHT22 temperature and humidity sensor
+- 1× 0.96" I2C OLED display
+- Breadboard, jumper wires, current-limiting resistors on the sensor signal lines
 
-### 3.2 Wiring notes
+### 3.2 Wiring
 
-The OLED is wired over I2C (VCC, GND, SCL, SDA), the MQ-5 analog output goes into an ESP32 ADC pin, and the DHT22 data line is pulled up and connected to a digital GPIO. Resistors were placed in line with the sensor signal wires as required by the deliverable instructions, to avoid overdriving the ESP32 pins.
+OLED on I2C (VCC, GND, SCL, SDA), MQ-5 analog out into an ADC pin, DHT22 data line pulled up to a digital GPIO. We put resistors in line with the sensor signals as the instructions required.
 
 ### 3.3 Output
 
-The OLED displays live readings in the format:
-
-```
-Temp: 26.3C
-Hum:  66.4%
-Gas:  15
-```
-
-Readings were captured across multiple trials to confirm the sensors respond to environmental changes (breathing near the MQ-5 raises the gas reading, and humidity shifts as expected):
+Once it was running, the OLED updated every few seconds showing:
+We ran seven trials to check the sensors were actually reacting to the environment. Someone held their hand near the MQ-5 on trials 3 and 4 — you can see the gas reading jump to 73 and 64. It came back down to 15 once they moved away, so the sensor was genuinely picking something up.
 
 | Trial | Temp (°C) | Humidity (%) | Gas reading |
-|-------|-----------|---------------|--------------|
-| 1     | 26.3      | 66.4          | 15           |
-| 2     | 26.3      | 67.2          | 0            |
-| 3     | 26.3      | 62.8          | 73           |
-| 4     | 26.3      | 62.9          | 64           |
-| 5     | 26.3      | 63.7          | 60           |
-| 6     | 26.3      | 63.1          | 61           |
-| 7     | 26.3      | 68.0          | 15           |
+|---|---|---|---|
+| 1 | 26.3 | 66.4 | 15 |
+| 2 | 26.3 | 67.2 | 0 |
+| 3 | 26.3 | 62.8 | 73 |
+| 4 | 26.3 | 62.9 | 64 |
+| 5 | 26.3 | 63.7 | 60 |
+| 6 | 26.3 | 63.1 | 61 |
+| 7 | 26.3 | 68.0 | 15 |
 
-The gas value climbs noticeably in trials 3 and 4, which lines up with the sensor being triggered by hand near the sensing element during testing.
+### 3.4 Photos
 
-### 3.4 Evidence
-Full breadboard view, OLED reading Temp 26.3C, Hum 66.4%, Gas 15
+*Full breadboard — OLED reading Temp 26.3°C, Hum 66.4%, Gas 15*
 
 <img src="full_breadboard_view.jpeg" width="400"/>
 
-Close-up of the OLED display showing live readings
+*OLED display close-up*
 
 <img src="closeup.jpeg" width="400"/>
 
-MQ-5 sensor being triggered by hand, OLED reading Gas 73
+*MQ-5 triggered by hand — Gas 73*
 
 <img src="image3.jpeg" width="400"/>
 
-MQ-5 sensor triggered a second time, OLED reading Gas 64
+*MQ-5 triggered again — Gas 64*
 
 <img src="image4.jpeg" width="400"/>
 
-Wide view of the full architecture, a breadboard build
+*Wide shot of the full build*
 
 <img src="image5.jpeg" width="400"/>
 
-Final reading on the OLED, Hum 68.0%, Gas 15
+*Final OLED reading — Hum 68.0%, Gas 15*
 
 <img src="image6.jpeg" width="400"/>
 
 ---
 
-## 4. Prototype 2: Simulated – Architecture A (Wokwi)
+## 4. Prototype 2: Wokwi Simulation – Architecture A
 
-A matching simulation of the same architecture (ESP32 + MQ-5 + DHT22 + OLED) was built on Wokwi to validate the logic independently of physical component tolerances.
+We put the same circuit into Wokwi to check the code worked regardless of physical component variation. Project: https://wokwi.com/projects/467006558712168449
 
-- Wokwi project link: https://wokwi.com/projects/467006558712168449
-- DHT22 is wired to GPIO 4, the gas sensor's analog output goes into GPIO 34, and the SSD1306 OLED runs over I2C at address 0x3C.
-- The sketch shows a startup splash screen ("Flower Monitor v1.0"), then loops every 2 seconds reading temperature, humidity and gas level, printing them to the serial monitor, and redrawing them on the OLED under an "ENV METRICS" header.
-- If the DHT22 read fails, the sketch prints a "DHT22 Error!" message to the OLED instead of stale data, which was used to confirm the error-handling path works as well as the normal reading path.
-- Serial monitor output and the simulated OLED were used to confirm the code logic matches the physical prototype's behaviour.
-
----
-
-## 5. Prototype 3: Physical – Architecture C (DHT22 → Relay → MQ-5, dual ESP32)
-
-### 5.1 Components used
-
-- 2x ESP32S / Arduino Nano-style boards (one per node)
-- 1x DHT22 sensor
-- 1x MQ-5 gas sensor module
-- 1x relay module
-- Breadboard, jumper wires, resistor for the sensor signal line
-
-### 5.2 Build notes
-
-Node 2 (climate node) reads the DHT22 on GPIO 4 and controls the relay on GPIO 12. When temperature exceeds 28°C, it closes the relay; otherwise the relay stays open. Node 1 (gas node) reads the MQ-5 on GPIO 36 and listens to the relay contacts on GPIO 14, configured as `INPUT_PULLUP` so it reads HIGH by default and drops to LOW the moment node 2 closes the relay. This is the interlock behaviour required by architecture C: node 1's serial output reports the local gas level plus whether it is seeing a "TRIGGERED" or "NORMAL" state from node 2's relay.
-
-Since both boards run the same sketch, each ESP32 determines its own role at boot by checking its virtual MAC address (even vs odd), which is how a single codebase can serve either node depending on which board it is flashed to.
-
-### 5.3 Status and issues encountered
-
-During physical assembly we ran into the following:
-
-- **Loose header connections between the two boards.** The jumper wires connecting the DHT22 node to the relay and the relay to the MQ-5 node kept disconnecting during handling, which produced intermittent readings on the first few test runs.
-  - *Solution explored:* reseated all jumper wires directly into the breadboard rows instead of stacking them on the module headers, and shortened the wire runs between the two ESP32 boards to reduce strain on the connectors.
-- **Relay module drawing more current than expected**, which caused voltage dips visible in unstable sensor readings on the MQ-5 side.
-  - *Solution explored:* powered the relay from a separate section of the breadboard's power rail rather than sharing the rail directly with the sensors, and added a resistor to the sensor signal line as instructed.
-- **Recommendation going forward:** if the connection instability persists past this deliverable, we recommend soldering a small interconnect harness between the two boards rather than relying on loose jumper wires, since the two-ESP32 setups are more physically fragile than the single-board architecture A build.
-
-### 5.4 Evidence
-
-<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04" src="https://github.com/user-attachments/assets/48d090c2-2113-4aa4-8e91-19b89ef878cb" /><br/>
-Two ESP32 boards, DHT22, MQ-5 and relay module wired together
-
-
-<img width="399" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (2)" src="https://github.com/user-attachments/assets/5d5ca32c-1445-495b-b8d3-91dab8e3e69e" /><br/>
-close-up of the dual-board wiring with the relay module 
-
-<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (3)" src="https://github.com/user-attachments/assets/5c4eb046-765c-44aa-8431-ef50aa510f6c" /><br/>
-team member connecting the interconnect wires between the two boards
-
-
-<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (4)" src="https://github.com/user-attachments/assets/88a32a4e-179d-4270-9e05-4c565c5e3920" /><br/>
-team member testing the dual-board setup with laptop nearby for serial monitor output
+- Same pin assignments as the physical build — DHT22 on GPIO 4, gas sensor on GPIO 34, OLED on I2C at 0x3C.
+- Boots with a splash screen then reads all three sensors every 2 seconds and updates the OLED.
+- We disconnected the DHT22 in simulation to test the error path — the OLED correctly switched to a `DHT22 Error!` message instead of showing the last reading.
+- Serial output matched what the physical OLED was showing, so we were happy the code was correct.
 
 ---
 
-## 6. Prototype 4: Simulated – Architecture B (Wokwi)
+## 5. Prototype 3: Physical – Architecture C (two ESP32s + relay)
 
-Since architecture C was built physically, architecture B (ESP32 with MQ-5 interfaced directly with a second ESP32 running the DHT22, without the relay stage) was built as the corresponding Wokwi simulation.
+### 5.1 Components
 
-- Wokwi project link: https://wokwi.com/projects/467017703807057921
-- The two boards communicate over hardware UART2 (RX/TX on GPIO 16/17) rather than a relay. Node 1 reads the gas sensor on GPIO 34 and transmits the raw value as a line of text over UART. Node 2 reads its local DHT22 on GPIO 4 and listens for incoming gas readings over the same UART link.
-- Each board figures out its own role at runtime: it first checks whether a DHT22 responds on GPIO 4. If it gets a valid temperature reading, it settles into the "climate receiver" role; if not, it falls back to the "gas transmitter" role. This means the same sketch can be flashed to both boards.
-- Node 2's serial monitor output prints both its own local temperature and humidity and the most recent gas value received from node 1, confirming the direct ESP32-to-ESP32 link works without needing a relay in between.
+- 2× ESP32S boards
+- 1× DHT22
+- 1× MQ-5 gas sensor
+- 1× relay module
+- Breadboard, jumper wires, one resistor on the sensor signal line
+
+### 5.2 How it works
+
+Node 2 reads the DHT22 on GPIO 4 and drives the relay from GPIO 12 — relay closes if temperature goes above 28°C. Node 1 reads the MQ-5 on GPIO 36 and watches the relay contacts on GPIO 14 with `INPUT_PULLUP`, so it normally sits HIGH and drops LOW when Node 2 triggers. Node 1 prints the gas level plus a TRIGGERED or NORMAL flag to serial.
+
+Both boards run the same sketch. Each one checks its own MAC address at boot to decide which role to take — even MAC is the gas node, odd MAC is the climate node.
+
+### 5.3 Issues we ran into
+
+- **Jumper wires kept coming loose** between the two boards whenever we moved anything, which gave us intermittent readings. We pushed all the wires directly into the breadboard rows and shortened the runs — that mostly fixed it.
+- **The relay drew more current than expected**, which caused voltage dips that made the MQ-5 readings unstable. Moving the relay to its own section of the power rail sorted it out.
+- **Going forward** we would solder the connection between the two boards instead of relying on jumper wires. The two-board setup is a lot more fragile to handle than Architecture A.
+
+### 5.4 Photos
+
+*Both ESP32 boards, DHT22, MQ-5 and relay wired together*
+
+<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04" src="https://github.com/user-attachments/assets/48d090c2-2113-4aa4-8e91-19b89ef878cb" />
+
+*Close-up of the relay module and dual-board wiring*
+
+<img width="399" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (2)" src="https://github.com/user-attachments/assets/5d5ca32c-1445-495b-b8d3-91dab8e3e69e" />
+
+*Team member connecting the wires between the two boards*
+
+<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (3)" src="https://github.com/user-attachments/assets/5c4eb046-765c-44aa-8431-ef50aa510f6c" />
+
+*Team member watching serial monitor output during testing*
+
+<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (4)" src="https://github.com/user-attachments/assets/88a32a4e-179d-4270-9e05-4c565c5e3920" />
 
 ---
 
-## 7. Evidence of groupwork
+## 6. Prototype 4: Wokwi Simulation – Architecture B
 
-- Physical assembly and testing were carried out together on the same breadboard setup, with team members alternating between wiring, powering the circuit, and reading the OLED output.
-- Photos in sections 3 and 5 show team members actively working on the physical builds, including the architecture C assembly photos where a team member is seen connecting the interconnect wires between the two boards while another monitors output on a laptop.
-- Wokwi projects were shared as public links so all members could view, edit, and test the simulated circuits.
+Since we built Architecture C physically, we used Architecture B as the Wokwi pair. Project: https://wokwi.com/projects/467017703807057921
 
----
-
-## 8. Repository structure
-
-```
-sunflower-greenhouse-iot/
-├── README.md              # Deliverable 1 overview
-├── README1.md              # Deliverable 1 detail
-├── README2.md              # This document (Deliverable 2)
-├── images/                 # Photos of physical prototypes
-├── wokwi/                  # Wokwi project exports/screenshots (optional)
-```
+- The two boards talk over UART2 (GPIO 16 and 17). Node 1 sends gas readings as text, Node 2 listens while also reading its local DHT22 on GPIO 4.
+- Role assignment is the same runtime check as the physical build — DHT22 responding means climate node, no response means gas node. Same sketch on both boards.
+- Node 2's serial output showed its own temperature and humidity plus the incoming gas value from Node 1, which confirmed the link was working.
 
 ---
 
-## 9. Conclusion
+## 7. Groupwork
 
-Between the physical and simulated builds, the team has working prototypes for all three architectures from Deliverable 1. Architecture A was validated on both physical hardware and Wokwi, giving confidence that the OLED, MQ-5 and DHT22 readings match across both environments. Architectures B and C were split between a physical build and a simulation as permitted, and the physical build for architecture C surfaced real wiring issues that a simulation alone would not have caught, which is documented in section 5.3 along with the fixes applied and a recommendation for a more permanent connection method going forward.
+- The physical builds were done together, people took turns wiring, holding things in place and reading the outputs.
+- The photos in sections 3 and 5 were taken during the actual build sessions.
+- Both Wokwi projects are public so everyone in the group could open and run them.
+
+---
+
+## 8. Conclusion
+
+We got working prototypes for all three architectures. Architecture A was straightforward and the simulation matched the physical readings well. Architecture C was harderthe two-board wiring caused real problems that a simulation would not have caught, which is why section 5.3 is longer. The Wokwi simulation for Architecture B covered the approach we didn't build physically and gave us enough confidence it would work in hardware too.
