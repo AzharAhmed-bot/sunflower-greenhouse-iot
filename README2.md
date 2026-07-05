@@ -130,13 +130,19 @@ During physical assembly we ran into the following:
 
 ### 5.4 Evidence
 
-[HERE GOES IMAGE: second breadboard with the two ESP32 boards, DHT22, MQ-5 and relay module wired together]
+<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04" src="https://github.com/user-attachments/assets/48d090c2-2113-4aa4-8e91-19b89ef878cb" /><br/>
+Two ESP32 boards, DHT22, MQ-5 and relay module wired together
 
-[HERE GOES IMAGE: close-up of the dual-board wiring with the relay module visible]
 
-[HERE GOES IMAGE: team member connecting the interconnect wires between the two boards]
+<img width="399" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (2)" src="https://github.com/user-attachments/assets/5d5ca32c-1445-495b-b8d3-91dab8e3e69e" /><br/>
+close-up of the dual-board wiring with the relay module 
 
-[HERE GOES IMAGE: team member testing the dual-board setup with laptop nearby for serial monitor output]
+<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (3)" src="https://github.com/user-attachments/assets/5c4eb046-765c-44aa-8431-ef50aa510f6c" /><br/>
+team member connecting the interconnect wires between the two boards
+
+
+<img width="300" height="400" alt="WhatsApp Image 2026-06-30 at 15 38 04 (4)" src="https://github.com/user-attachments/assets/88a32a4e-179d-4270-9e05-4c565c5e3920" /><br/>
+team member testing the dual-board setup with laptop nearby for serial monitor output
 
 ---
 
