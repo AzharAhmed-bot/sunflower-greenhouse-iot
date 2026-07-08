@@ -1,6 +1,8 @@
 # ICS 4111: Embedded Systems & IoT
 ## Semester Project – Deliverable 2: Prototyping
 *Group 5 — Lazy Lobsters*
+<img width="1206" height="904" alt="WhatsApp Image 2026-07-08 at 14 07 54" src="https://github.com/user-attachments/assets/62c47665-d497-403f-b7fc-604a0d9c08ab" />
+
 
 ---
 
